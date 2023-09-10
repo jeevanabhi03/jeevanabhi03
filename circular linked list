@@ -1,0 +1,108 @@
+class Node:
+    def __init__(self, data):
+        self.data = data
+        self.next = None
+
+class CircularLinkedList:
+    def __init__(self):
+        self.head = None
+
+    def insertBegin(self, value):
+        new_node = Node(value)
+        if self.head is None:
+            self.head = new_node
+            new_node.next = self.head
+        else:
+            temp = self.head
+            while temp.next != self.head:
+                temp = temp.next
+            temp.next = new_node
+            new_node.next = self.head
+            self.head = new_node
+        print(f"Inserted {value} at the beginning.")
+
+    def insertEnd(self, value):
+        new_node = Node(value)
+        if self.head is None:
+            self.head = new_node
+            new_node.next = self.head
+        else:
+            temp = self.head
+            while temp.next != self.head:
+                temp = temp.next
+            temp.next = new_node
+            new_node.next = self.head
+        print(f"Inserted {value} at the end.")
+
+    def deleteBegin(self):
+        if self.head is None:
+            print("List is empty.")
+            return
+        temp = self.head
+        while temp.next != self.head:
+            temp = temp.next
+        if self.head == temp:
+            self.head = None
+        else:
+            self.head = self.head.next
+            temp.next = self.head
+        print("Deleted the first node.")
+
+    def deleteEnd(self):
+        if self.head is None:
+            print("List is empty.")
+            return
+        temp = self.head
+        prev = None
+        while temp.next != self.head:
+            prev = temp
+            temp = temp.next
+        if prev is None:
+            self.head = None
+        else:
+            prev.next = self.head
+        print("Deleted the last node.")
+
+    def displayList(self):
+        if self.head is None:
+            print("List is empty.")
+            return
+        temp = self.head
+        print("List:", end=" ")
+        while True:
+            print(temp.data, end=" ")
+            temp = temp.next
+            if temp == self.head:
+                break
+        print()
+
+if __name__ == "__main__":
+    circular_linked_list = CircularLinkedList()
+    
+    while True:
+        print("\nCircular Singly Linked List Operations")
+        print("1. Insert at beginning")
+        print("2. Insert at end")
+        print("3. Delete from beginning")
+        print("4. Delete from end")
+        print("5. Display list")
+        print("6. Exit")
+        
+        choice = int(input("Enter your choice: "))
+        
+        if choice == 1:
+            value = int(input("Enter value to insert: "))
+            circular_linked_list.insertBegin(value)
+        elif choice == 2:
+            value = int(input("Enter value to insert: "))
+            circular_linked_list.insertEnd(value)
+        elif choice == 3:
+            circular_linked_list.deleteBegin()
+        elif choice == 4:
+            circular_linked_list.deleteEnd()
+        elif choice == 5:
+            circular_linked_list.displayList()
+        elif choice == 6:
+            break
+        else:
+            print("Invalid choice.")
